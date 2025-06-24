@@ -7,12 +7,18 @@ edition = "2021"
 igloo-api = { path = "../api" }
 igloo-common = { path = "../common" }
 igloo-engine = { path = "../engine" }
+igloo-connector-filesystem = { path = "../connectors/filesystem" }
+igloo-connector-iceberg = { path = "../connectors/iceberg" }
 tokio = { version = "1", features = ["full"] }
 tonic = "0.12"
 prost = "0.13"
 prost-types = "0.13"
 chrono = "0.4"
-datafusion = "48.0.0"
-igloo-connector-filesystem = { path = "../connectors/filesystem" }
-object_store = "0.9"
-arrow-flight = "55.1.0"
+datafusion = { workspace = true }
+object_store = { workspace = true }
+arrow-flight = { workspace = true }
+arrow = { workspace = true }
+parquet = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

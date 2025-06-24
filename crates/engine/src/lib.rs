@@ -23,6 +23,11 @@ use datafusion::error::{DataFusionError, Result as DataFusionResult};
 use datafusion::execution::context::SessionContext;
 use datafusion::logical_expr::{create_udf, ColumnarValue, ScalarUDF, Volatility};
 
+pub mod join_engine;
+pub mod parser;
+
+pub use join_engine::{JoinEngine, JoinConfig, JoinType};
+
 #[derive(Clone)]
 pub struct QueryEngine {
     ctx: SessionContext,
@@ -53,6 +58,11 @@ impl QueryEngine {
     pub async fn execute(&self, sql: &str) -> Vec<RecordBatch> {
         let df = self.ctx.sql(sql).await.expect("SQL execution failed");
         df.collect().await.expect("Failed to collect results")
+    }
+
+    /// Get the underlying SessionContext for advanced operations
+    pub fn session_context(&self) -> &SessionContext {
+        &self.ctx
     }
 }
 
